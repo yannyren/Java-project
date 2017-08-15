@@ -31,8 +31,41 @@ public class CustomerTest {
     }
 
     @Test
-    public void hasPreferredPaymentType () {
-        assertEquals(PaymentType.CREDIT_CARD, toddy.getPaymentType());
+    public void couldSetName() {
+        toddy.setName("Barry");
+        assertEquals("Barry", toddy.getName());
+    }
+
+    @Test
+    public void hasPreferredPaymentType() {
+        assertEquals(PaymentType.CREDIT_CARD, toddy.getPreferredPaymentType());
+    }
+
+    @Test
+    public void couldSetPreferredPaymentType() {
+        toddy.setPreferredPaymentType(PaymentType.CASH);
+        assertEquals(PaymentType.CASH, toddy.getPreferredPaymentType());
+    }
+
+    @Test
+    public void hasWallet() {
+        assertEquals(toddyWallet, toddy.getWallet());
+    }
+
+    @Test
+    public void couldSetNewWallet() {
+        HashMap<PaymentType, Integer> newWallet = new HashMap<PaymentType, Integer>();
+        newWallet.put(PaymentType.CASH, 300);
+        newWallet.put(PaymentType.CREDIT_CARD, 5000);
+        newWallet.put(PaymentType.DEBIT_CARD, 3000);
+
+        toddy.setWallet(newWallet);
+        assertEquals(newWallet, toddy.getWallet());
+    }
+
+    @Test
+    public void couldSumAvailableFund() {
+        assertEquals(2300, toddy.totalFundAvailable());
     }
 
 

@@ -10,20 +10,18 @@ public class Transaction {
 
     private int transanctionBarcodeNumber;
     private Product product;
-    private int salesAmount;
+    private int productSoldQuantity;
     private Customer customer;
     private Date transactionDate;
-    private int price;
-    private int vatNumber;
+    private ShopAccount shop;
 
-    public Transaction(int transanctionBarcodeNumber, Product product, int salesAmount, Customer customer, Date transactionDate, int price, int vatNumber) {
+    public Transaction(int transanctionBarcodeNumber, Product product, int productSoldQuantity, Customer customer, Date transactionDate, ShopAccount shop) {
         this.transanctionBarcodeNumber = transanctionBarcodeNumber;
         this.product = product;
-        this.salesAmount = salesAmount;
+        this.productSoldQuantity = productSoldQuantity;
         this.customer = customer;
         this.transactionDate = transactionDate;
-        this.price = price;
-        this.vatNumber = vatNumber;
+        this.shop = shop;
     }
 
     public int getTransanctionBarcodeNumber() {
@@ -42,12 +40,12 @@ public class Transaction {
         this.product = product;
     }
 
-    public int getSalesAmount() {
-        return salesAmount;
+    public int getProductSoldQuantity() {
+        return this.productSoldQuantity;
     }
 
-    public void setSalesAmount(int salesAmount) {
-        this.salesAmount = salesAmount;
+    public void setProductSoldQuantity(int productSoldQuantity) {
+        this.productSoldQuantity = productSoldQuantity;
     }
 
     public Customer getCustomer() {
@@ -66,19 +64,23 @@ public class Transaction {
         this.transactionDate = transactionDate;
     }
 
-    public int getPrice() {
-        return price;
+    public void sales(Product product) {
+// shop totalSum goes up; customer wallet goes down; product stock goes down
+        //customer has enough fund in preferred paymentType
+        PaymentType x = this.customer.getPreferredPaymentType();
+        int sales = product.getPrice() * this.productSoldQuantity
+        if (this.customer.getWallet().get(x) > sales) {
+            this.shop.addSales(sales);
+            this.customer.getWallet().get(x)
+            this.product.stockLevelAfterSales(this.productSoldQuantity);
+        }
+
+
     }
 
-    public void setPrice(int price) {
-        this.price = price;
+    public void refund(Product product) {
+
     }
 
-    public int getVatNumber() {
-        return vatNumber;
-    }
-
-    public void setVatNumber(int vatNumber) {
-        this.vatNumber = vatNumber;
-    }
 }
+

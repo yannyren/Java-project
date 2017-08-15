@@ -35,8 +35,15 @@ public class ShopAccount {
     public int getTotalSum() {
         return totalSum;
     }
-
-    public void setTotalSum(Transaction transaction) {
-        this.totalSum += transaction.getPrice();
+    public int addSales(int sales) {
+        return this.totalSum + sales;
     }
+
+    public int refundSales(int sales) {
+        return this.totalSum - sales;
+    }
+
+   /* public void setTotalSum(Transaction transaction) {
+        this.totalSum += transaction.getPrice();
+    }*/
 }

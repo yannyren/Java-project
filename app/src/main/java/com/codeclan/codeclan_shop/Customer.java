@@ -8,12 +8,12 @@ import java.util.HashMap;
 
 public class Customer {
     private String name;
-    private PaymentType paymentType;
+    private PaymentType preferredPaymentType;
     private HashMap<PaymentType, Integer> wallet;
 
-    public Customer(String name, PaymentType paymentType, HashMap<PaymentType, Integer> wallet) {
+    public Customer(String name, PaymentType preferredPaymentType, HashMap<PaymentType, Integer> wallet) {
         this.name = name;
-        this.paymentType = paymentType;
+        this.preferredPaymentType = preferredPaymentType;
         this.wallet = wallet;
     }
 
@@ -32,12 +32,20 @@ public class Customer {
         this.name = newName;
     }
 
-    public PaymentType getPaymentType() {
-        return this.paymentType;
+    public PaymentType getPreferredPaymentType() {
+        return this.preferredPaymentType;
     }
 
-    public void setPaymentType(PaymentType newPaymentType) {
-        this.paymentType = newPaymentType;
+    public void setPreferredPaymentType(PaymentType newPreferredPaymentType) {
+        this.preferredPaymentType = newPreferredPaymentType;
+    }
+
+    public HashMap<PaymentType, Integer> getWallet() {
+        return this.wallet;
+    }
+
+    public void setWallet(HashMap<PaymentType, Integer> newWallet) {
+        this.wallet = newWallet;
     }
 
     public int totalFundAvailable() {
@@ -47,6 +55,15 @@ public class Customer {
         }
         return totalFundAvailable;
     }
+
+    public void walletChangeAfterSales() {
+
+    }
+
+
+
+
+
 
 
 
