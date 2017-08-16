@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.HashMap;
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -14,15 +15,29 @@ import static org.junit.Assert.*;
 public class CustomerTest {
 
     Customer toddy;
-    HashMap<PaymentType, Integer> toddyWallet;
+    ArrayList<HashMap<PaymentType, Integer>> toddyWallet;
 
     @Before
     public void before() {
-        toddyWallet = new HashMap<PaymentType, Integer>();
-        toddyWallet.put(PaymentType.CASH, 200);
-        toddyWallet.put(PaymentType.CREDIT_CARD, 2000);
-        toddyWallet.put(PaymentType.DEBIT_CARD, 100);
-        toddy = new Customer("Toddy", PaymentType.CREDIT_CARD, toddyWallet);
+        toddyWallet = new ArrayList<HashMap<PaymentType, Integer>>();
+        HashMap<PaymentType, Integer> cashList = new HashMap<PaymentType, Integer>();
+        cashList.put(PaymentType.CASH, 200);
+        HashMap<PaymentType, Integer> creditCardList = new HashMap<PaymentType, Integer>();
+        creditCardList.put(PaymentType.MASTER_CREDIT, 5000);
+        creditCardList.put(PaymentType.VISA_CREDIT, 4000);
+        HashMap<PaymentType, Integer> debitCardList = new HashMap<PaymentType, Integer>();
+        debitCardList.put(PaymentType.MASTER_CREDIT, 2000);
+        debitCardList.put(PaymentType.VISA_CREDIT, 1000);
+        HashMap<PaymentType, Integer> criptoCurrencyList = new HashMap<PaymentType, Integer>();
+        criptoCurrencyList.put(PaymentType.BITCOIN, 2000);
+
+
+        toddyWallet.add(cashList);
+        toddyWallet.add(debitCardList);
+        toddyWallet.add(creditCardList);
+        toddyWallet.add(criptoCurrencyList);
+
+        toddy = new Customer("Toddy", toddyWallet);
     }
 
     @Test
@@ -37,37 +52,53 @@ public class CustomerTest {
     }
 
     @Test
-    public void hasPreferredPaymentType() {
-        assertEquals(PaymentType.CREDIT_CARD, toddy.getPreferredPaymentType());
-    }
-
-    @Test
-    public void couldSetPreferredPaymentType() {
-        toddy.setPreferredPaymentType(PaymentType.CASH);
-        assertEquals(PaymentType.CASH, toddy.getPreferredPaymentType());
-    }
-
-    @Test
     public void hasWallet() {
         assertEquals(toddyWallet, toddy.getWallet());
     }
 
     @Test
     public void couldSetNewWallet() {
-        HashMap<PaymentType, Integer> newWallet = new HashMap<PaymentType, Integer>();
-        newWallet.put(PaymentType.CASH, 300);
-        newWallet.put(PaymentType.CREDIT_CARD, 5000);
-        newWallet.put(PaymentType.DEBIT_CARD, 3000);
+        ArrayList<HashMap<PaymentType, Integer>> toddyNewWallet = new ArrayList<HashMap<PaymentType, Integer>>();
+        HashMap<PaymentType, Integer> cashList = new HashMap<PaymentType, Integer>();
+        cashList.put(PaymentType.CASH, 300);
+        HashMap<PaymentType, Integer> creditCardList = new HashMap<PaymentType, Integer>();
+        creditCardList.put(PaymentType.MASTER_CREDIT, 5000);
+        creditCardList.put(PaymentType.VISA_CREDIT, 4000);
+        HashMap<PaymentType, Integer> debitCardList = new HashMap<PaymentType, Integer>();
+        debitCardList.put(PaymentType.VISA_DEBIT, 3000);
+        debitCardList.put(PaymentType.MASTER_DEBIT, 1000);
+        HashMap<PaymentType, Integer> criptoCurrencyList = new HashMap<PaymentType, Integer>();
+        criptoCurrencyList.put(PaymentType.BITCOIN, 2000);
 
-        toddy.setWallet(newWallet);
-        assertEquals(newWallet, toddy.getWallet());
+        toddyNewWallet.add(criptoCurrencyList);
+        toddyNewWallet.add(cashList);
+        toddyNewWallet.add(debitCardList);
+        toddyNewWallet.add(creditCardList);
+
+        toddy.setWallet(toddyNewWallet);
+
+        assertEquals(300, toddy.getWallet().get(0).get(PaymentType.CASH).intValue());
     }
+
 
     @Test
-    public void couldSumAvailableFund() {
-        assertEquals(2300, toddy.totalFundAvailable());
+    public void hasPreferredPaymentType() {
+        assertEquals(cashList, toddy.getPreferredPayment());
     }
+//
+//    @Test
+//    public void couldSetPreferredPaymentType() {
+//        toddy.setPreferredPaymentType(PaymentType.CASH);
+//        assertEquals(PaymentType.CASH, toddy.getPreferredPaymentType());
+//    }
 
+
+
+//    @Test
+//    public void couldSumAvailableFund() {
+//        assertEquals(2300, toddy.totalFundAvailable());
+//    }
+//
 
 
 }

@@ -1,5 +1,6 @@
 package com.codeclan.codeclan_shop;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -8,21 +9,12 @@ import java.util.HashMap;
 
 public class Customer {
     private String name;
-    private PaymentType preferredPaymentType;
-    private HashMap<PaymentType, Integer> wallet;
+    private ArrayList<HashMap<PaymentType, Integer>> wallet;
 
-    public Customer(String name, PaymentType preferredPaymentType, HashMap<PaymentType, Integer> wallet) {
+    public Customer(String name, ArrayList<HashMap<PaymentType, Integer>> wallet) {
         this.name = name;
-        this.preferredPaymentType = preferredPaymentType;
         this.wallet = wallet;
     }
-
-//    private void setUpWallet() {
-//        wallet = new HashMap<PaymentType, Integer>();
-//        wallet.put(PaymentType.CASH, 200);
-//        wallet.put(PaymentType.CREDIT_CARD, 2000);
-//        wallet.put(PaymentType.DEBIT_CARD, 100);
-//    }
 
     public String getName() {
         return name;
@@ -32,38 +24,32 @@ public class Customer {
         this.name = newName;
     }
 
-    public PaymentType getPreferredPaymentType() {
-        return this.preferredPaymentType;
-    }
-
-    public void setPreferredPaymentType(PaymentType newPreferredPaymentType) {
-        this.preferredPaymentType = newPreferredPaymentType;
-    }
-
-    public HashMap<PaymentType, Integer> getWallet() {
+    public  ArrayList<HashMap<PaymentType, Integer>> getWallet() {
         return this.wallet;
     }
 
-    public void setWallet(HashMap<PaymentType, Integer> newWallet) {
+    public void setWallet(ArrayList<HashMap<PaymentType, Integer>> newWallet) {
         this.wallet = newWallet;
+    }
+
+    public HashMap<PaymentType, Integer> getPreferredPayment() {
+        return this.wallet.get(0);
     }
 
     public int totalFundAvailable() {
         int totalFundAvailable = 0;
-        for (Integer i : this.wallet.values()) {
-            totalFundAvailable += i.intValue();
+
+        for (int i = 0; i < wallet.size(); i++) {
+
+            HashMap<PaymentType, Integer> tempHashMap = this.wallet.get(i);
+            for (Integer f: tempHashMap.values()) {
+                totalFundAvailable += f.intValue();
+            }
+
         }
+
         return totalFundAvailable;
     }
-
-    public void walletChangeAfterSales() {
-
-    }
-
-
-
-
-
 
 
 

@@ -14,17 +14,17 @@ public class TransactionTest {
     Product jellyBeans;
 
 
-    @Before
-    public void before(){
-        jellyBeans = new Product("Jelly Beans", 456789, 3, "US", 400);
-        transaction1 = new Transaction(320987, jellyBeans, 30, );
-    }
-
-    @Test
-    public void shopAccountHasName() {
-        assertEquals("Yan's Sweeties", shop1.getName());
-    }
-
+//    @Before
+//    public void before(){
+//        jellyBeans = new Product("Jelly Beans", 456789, 3, "US", 400);
+//        transaction1 = new Transaction(320987, jellyBeans, 30, );
+//    }
+//
+//    @Test
+//    public void shopAccountHasName() {
+//        assertEquals("Yan's Sweeties", shop1.getName());
+//    }
+//
 
 
 

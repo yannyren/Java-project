@@ -6,6 +6,10 @@ package com.codeclan.codeclan_shop;
 
 public enum PaymentType {
     CASH,
-    CREDIT_CARD,
-    DEBIT_CARD
+    VISA_CREDIT,
+    MASTER_CREDIT,
+    VISA_DEBIT,
+    MASTER_DEBIT,
+    BITCOIN
+
 }

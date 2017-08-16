@@ -64,23 +64,31 @@ public class Transaction {
         this.transactionDate = transactionDate;
     }
 
-    public void sales(Product product) {
+   /* public void sales(Product product) {
 // shop totalSum goes up; customer wallet goes down; product stock goes down
         //customer has enough fund in preferred paymentType
-        PaymentType x = this.customer.getPreferredPaymentType();
-        int sales = product.getPrice() * this.productSoldQuantity
-        if (this.customer.getWallet().get(x) > sales) {
-            this.shop.addSales(sales);
-            this.customer.getWallet().get(x)
-            this.product.stockLevelAfterSales(this.productSoldQuantity);
+        //check stock level first
+
+        if (product.getStock() < this.productSoldQuantity && this.customer.totalFundAvailable() > this.product.getPrice() * this.productSoldQuantity){
+            System.out.println("Sorry, we have only " + this.product.getStock() + " level. Would you like to buy these?");
         }
+        else {
+            PaymentType x = this.customer.getPreferredPaymentType();
+            int sales = product.getPrice() * this.productSoldQuantity;
+            if (this.customer.getWallet().get(x) > sales) {
+                this.shop.addSales(sales);
+                int newBalance = this.customer.getWallet().get(x) - sales;
+                this.customer.getWallet().put(x, newBalance);
+                this.product.stockLevelAfterSales(this.productSoldQuantity);
+            } else if (this.customer.) {
 
-
+            }
+        }
     }
 
     public void refund(Product product) {
 
-    }
+    } */
 
 }
 
