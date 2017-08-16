@@ -8,12 +8,14 @@ import java.math.BigDecimal;
 public class ShopAccount {
     private String name;
     private int vatNumber;
-    private int totalSum;
+    private int sales;
+    private int refund;
 
-    public ShopAccount(String name, int vatNumber, int totalSum) {
+    public ShopAccount(String name, int vatNumber, int sales, int refund) {
         this.name = name;
         this.vatNumber = vatNumber;
-        this.totalSum = totalSum;
+        this.sales = sales;
+        this.refund = refund;
     }
 
     public String getName() {
@@ -25,25 +27,32 @@ public class ShopAccount {
     }
 
     public int getVatNumber() {
-        return vatNumber;
+        return this.vatNumber;
     }
 
     public void setVatNumber(int vatNumber) {
         this.vatNumber = vatNumber;
     }
 
-    public int getTotalSum() {
-        return totalSum;
-    }
-    public int addSales(int sales) {
-        return this.totalSum + sales;
+    public int getSales() {
+        return this.sales;
     }
 
-    public int refundSales(int sales) {
-        return this.totalSum - sales;
+    public int getRefund() {
+        return this.refund;
     }
 
-   /* public void setTotalSum(Transaction transaction) {
-        this.totalSum += transaction.getPrice();
-    }*/
+    public int makeSales(int sales) {
+        return this.sales += sales;
+    }
+
+    public int makeRefund(int refund) {
+        return this.refund += refund;
+    }
+
+    public int totalSales() {
+        int totalSales = this.sales - this.refund;
+        return totalSales;
+    }
+
 }

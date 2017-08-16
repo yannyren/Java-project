@@ -51,6 +51,14 @@ public class Customer {
         return totalFundAvailable;
     }
 
+    public int payForShopping() {
+
+    }
+
+    public int receivingRefund() {
+
+    }
+
 
 
 }

@@ -15,7 +15,7 @@ public class ShopAccountTest {
 
     @Before
     public void before(){
-        shop1 = new ShopAccount("Yan's Sweeties", 6170998, 30000);
+        shop1 = new ShopAccount("Yan's Sweeties", 6170998, 3000, 100);
     }
 
     @Test
@@ -24,14 +24,54 @@ public class ShopAccountTest {
     }
 
     @Test
+    public void couldSetShopName() {
+        shop1.setName("Donald's Sweeties");
+        assertEquals("Donald's Sweeties", shop1.getName());
+    }
+
+    @Test
     public void shopAccountHasVatNumber() {
         assertEquals(6170998, shop1.getVatNumber());
     }
 
     @Test
-    public void shopAccountHasTotalSum() {
-        assertEquals(30000, shop1.getTotalSum());
+    public void couldSetVatNumber() {
+        shop1.setVatNumber(6120998);
+        assertEquals(6120998, shop1.getVatNumber());
     }
 
+    @Test
+    public void couldGetShopAccountSales() {
+        assertEquals(3000, shop1.getSales());
+    }
+
+    @Test
+    public void couldGetShopAccountRefund() {
+        assertEquals(100, shop1.getRefund());
+    }
+
+
+    @Test
+    public void couldDoSales() {
+        int sales = 10;
+        shop1.makeSales(sales);
+        assertEquals(3010, shop1.getSales());
+    }
+
+    @Test
+    public void couldDoRefund() {
+        int refund = 10;
+        shop1.makeRefund(refund);
+        assertEquals(110, shop1.getRefund());
+    }
+
+    @Test
+    public void couldDoTotalSales() {
+        int sales = 20;
+        int refund = 10;
+        shop1.makeSales(sales);
+        shop1.makeRefund(refund);
+        assertEquals(2910, shop1.totalSales());
+    }
 
 }
