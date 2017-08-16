@@ -51,10 +51,43 @@ public class Customer {
         return totalFundAvailable;
     }
 
-    public int payForShopping() {
+    private void deductFromWallet(int billAmount) {
+        // loop round each payment method
+        for (HashMap<PaymentType, Integer> method: this.wallet) {
+            // loop round each balance inside the current method
+            for (PaymentType type: method.keySet()) {
+                // get the balance
+                int balance = method.get(type);
+                // get the minimum of the balance and the remaining billAmount
+                // stops negative balances
+                int value = Math.min(balance, billAmount);
+                // update the balance with the new amount
+                method.put(type, balance - value);
+                // subtract the amount we just spent from the total bill amount
+                billAmount -= value;
+
+                if (billAmount == 0)
+                    return;
+            }
+        }
+    }
+
+    public void payForShopping(int billAmount) {
+        int f = totalFundAvailable();
+
+        if (f < billAmount) {
+            System.out.println("Sorry, I don't have enough money for it.");
+        }
+
+        else {
+
+            deductFromWallet(billAmount);
+        }
+
 
     }
 
+    //checking
     public int receivingRefund() {
 
     }
