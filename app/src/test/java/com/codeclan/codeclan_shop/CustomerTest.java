@@ -16,11 +16,12 @@ public class CustomerTest {
 
     Customer toddy;
     ArrayList<HashMap<PaymentType, Integer>> toddyWallet;
+    HashMap<PaymentType, Integer> cashList;
 
     @Before
     public void before() {
         toddyWallet = new ArrayList<HashMap<PaymentType, Integer>>();
-        HashMap<PaymentType, Integer> cashList = new HashMap<PaymentType, Integer>();
+        cashList = new HashMap<PaymentType, Integer>();
         cashList.put(PaymentType.CASH, 200);
         HashMap<PaymentType, Integer> creditCardList = new HashMap<PaymentType, Integer>();
         creditCardList.put(PaymentType.MASTER_CREDIT, 5000);
@@ -70,10 +71,10 @@ public class CustomerTest {
         HashMap<PaymentType, Integer> criptoCurrencyList = new HashMap<PaymentType, Integer>();
         criptoCurrencyList.put(PaymentType.BITCOIN, 2000);
 
-        toddyNewWallet.add(criptoCurrencyList);
         toddyNewWallet.add(cashList);
         toddyNewWallet.add(debitCardList);
         toddyNewWallet.add(creditCardList);
+        toddyNewWallet.add(criptoCurrencyList);
 
         toddy.setWallet(toddyNewWallet);
 
@@ -85,20 +86,13 @@ public class CustomerTest {
     public void hasPreferredPaymentType() {
         assertEquals(cashList, toddy.getPreferredPayment());
     }
-//
-//    @Test
-//    public void couldSetPreferredPaymentType() {
-//        toddy.setPreferredPaymentType(PaymentType.CASH);
-//        assertEquals(PaymentType.CASH, toddy.getPreferredPaymentType());
-//    }
 
 
+    @Test
+    public void couldSumAvailableFund() {
+        assertEquals(14200, toddy.totalFundAvailable());
+    }
 
-//    @Test
-//    public void couldSumAvailableFund() {
-//        assertEquals(2300, toddy.totalFundAvailable());
-//    }
-//
 
 
 }
