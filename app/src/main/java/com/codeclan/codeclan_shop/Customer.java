@@ -83,10 +83,19 @@ public class Customer {
         }
     }
 
-    //checking
-   // public void receivingRefund() {
 
-  //  }
+    public void receivingRefund(PaymentType x, int refund) {
+        /* check if this method exists; if yes, refund to that method; if no, no refund*/
+        for (HashMap<PaymentType, Integer> i: this.wallet) {
+            for (PaymentType type: i.keySet()) {
+              if (type.equals(x)){
+                int value = i.get(x);
+                i.put(type, value + refund);
+              }
+            }
+        }
+    }
+
 
 
 

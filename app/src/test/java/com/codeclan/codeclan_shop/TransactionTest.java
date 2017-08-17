@@ -16,14 +16,13 @@ public class TransactionTest {
 
     Transaction transaction1;
     Transaction transaction2;
+    Transaction transaction3;
     Product jellyBeans;
     Customer toddy;
     ArrayList<HashMap<PaymentType, Integer>> toddyWallet;
     HashMap<PaymentType, Integer> cashList;
     HashMap<PaymentType, Integer> creditCardList;
     HashMap<PaymentType, Integer> debitCardList;
-    HashMap<PaymentType, Integer> criptoCurrencyList;
-    String transactionDate;
     ShopAccount shop1;
 
 
@@ -40,14 +39,11 @@ public class TransactionTest {
         debitCardList = new HashMap<PaymentType, Integer>();
         debitCardList.put(PaymentType.MASTER_DEBIT, 2000);
         debitCardList.put(PaymentType.VISA_DEBIT, 1000);
-        criptoCurrencyList = new HashMap<PaymentType, Integer>();
-        criptoCurrencyList.put(PaymentType.BITCOIN, 2000);
 
 
         toddyWallet.add(cashList);
         toddyWallet.add(creditCardList);
         toddyWallet.add(debitCardList);
-        toddyWallet.add(criptoCurrencyList);
 
         toddy = new Customer("Toddy", toddyWallet);
 
@@ -55,6 +51,7 @@ public class TransactionTest {
 
         transaction1 = new Transaction(320987, jellyBeans, 30, toddy, "16/07/2017", shop1 );
         transaction2 = new Transaction(320988, jellyBeans, 410, toddy, "16/07/2017", shop1);
+        transaction3 = new Transaction(120987, jellyBeans, 30, toddy, "19/07/2017", shop1 );
     }
 
     @Test
@@ -80,39 +77,76 @@ public class TransactionTest {
     }
 
     @Test
-    public void couldDoSalesTransaction_1() {
+    public void couldDoSalesTransaction_shop() {
         transaction1.sales();
         assertEquals(3090, shop1.getSales());
     }
 
     @Test
-    public void couldDoSalesTransaction_2() {
+    public void couldDoSalesTransaction_customer() {
         transaction1.sales();
-        assertEquals(14110, toddy.totalFundAvailable());
+        assertEquals(12110, toddy.totalFundAvailable());
     }
 
     @Test
-    public void couldDoSalesTransaction_3() {
+    public void couldDoSalesTransaction_stock() {
         transaction1.sales();
         assertEquals(370, jellyBeans.getStock());
     }
 
     @Test
-    public void couldNotDoSalesWhenNotEnoughStock_1() {
+    public void couldNotDoSalesWhenNotEnoughStock_stock() {
         transaction2.sales();
         assertEquals(400, jellyBeans.getStock());
     }
 
     @Test
-    public void couldNotDoSalesWhenNotEnoughStock_2() {
+    public void couldNotDoSalesWhenNotEnoughStock_customer() {
         transaction2.sales();
-        assertEquals(14200, toddy.totalFundAvailable());
+        assertEquals(12200, toddy.totalFundAvailable());
     }
 
     @Test
-    public void couldNotDoSalesWhenNotEnoughStock_3() {
+    public void couldNotDoSalesWhenNotEnoughStock_shop() {
         transaction2.sales();
         assertEquals(3000, shop1.getSales());
+    }
+
+    @Test
+    public void couldDoRefund_customer() {
+        transaction3.refund(PaymentType.CASH, 20);
+        assertEquals(290, cashList.get(PaymentType.CASH).intValue());
+    }
+
+    @Test
+    public void couldDoRefund_shop() {
+        transaction3.refund(PaymentType.CASH, 20);
+        assertEquals(190, shop1.getRefund());
+    }
+
+    @Test
+    public void couldDoRefund_stock() {
+        transaction3.refund(PaymentType.CASH, 20);
+        assertEquals(430, jellyBeans.getStock());
+    }
+
+
+    @Test
+    public void couldNotDoRefund_stock() {
+        transaction3.refund(PaymentType.BITCOIN, 20);
+        assertEquals(400, jellyBeans.getStock());
+    }
+
+    @Test
+    public void couldNotDoRefund_customer() {
+        transaction3.refund(PaymentType.BITCOIN, 20);
+        assertEquals(12200, toddy.totalFundAvailable());
+    }
+
+    @Test
+    public void couldNotDoRefund_shop() {
+        transaction3.refund(PaymentType.BITCOIN, 20);
+        assertEquals(100, shop1.getRefund());
     }
 
 

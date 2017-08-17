@@ -1,6 +1,7 @@
 package com.codeclan.codeclan_shop;
 
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * Created by yanren on 14/08/2017.
@@ -77,11 +78,20 @@ public class Transaction {
         }
     }
 
-    public void refund(Product product) {
+    public void refund(PaymentType x, int priceToRefund) {
+        for (HashMap<PaymentType, Integer> i : this.customer.getWallet()) {
+            for (PaymentType type : i.keySet()) {
+                if (type.equals(x)) {
+                    priceToRefund = this.product.getPrice() * this.productSoldQuantity;
+                    this.product.refundStock(this.getProductSoldQuantity());
+                    this.customer.receivingRefund(x, priceToRefund);
+                    this.shop.makeRefund(priceToRefund);
+                }
+            }
+
+
+        }
 
     }
 
-//   public void
-
 }
-
