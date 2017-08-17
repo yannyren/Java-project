@@ -58,6 +58,28 @@ public class TransactionTest {
     }
 
     @Test
+    public void transactionHasBarcodeNumber() {
+        assertEquals(320987, transaction1.getTransanctionBarcodeNumber());
+    }
+
+    @Test
+    public void couldSetTransactionBarcodeNumber() {
+        transaction1.setTransanctionBarcodeNumber(6120990);
+        assertEquals(6120990, transaction1.getTransanctionBarcodeNumber());
+    }
+
+    @Test
+    public void transactionHasDate() {
+        assertEquals("16/07/2017", transaction1.getTransactionDate());
+    }
+
+    @Test
+    public void couldSetTransactionDate() {
+        transaction1.setTransactionDate("18/07/2017");
+        assertEquals("18/07/2017", transaction1.getTransactionDate());
+    }
+
+    @Test
     public void couldDoSalesTransaction_1() {
         transaction1.sales();
         assertEquals(3090, shop1.getSales());

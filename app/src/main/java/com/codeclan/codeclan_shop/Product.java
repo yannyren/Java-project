@@ -55,6 +55,10 @@ public class Product {
         return stock;
     }
 
+    public void setStock(int newStock) {
+        this.stock = newStock;
+    }
+
     public void sellStock(int stockSold) {
         this.stock -= stockSold;
     }
