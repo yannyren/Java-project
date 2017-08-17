@@ -55,11 +55,12 @@ public class Product {
         return stock;
     }
 
-    public void setStock(int stock) {
-        this.stock = stock;
+    public void sellStock(int stockSold) {
+        this.stock -= stockSold;
     }
 
-    public void stockLevelAfterSales(int soldQuantity) {
-        this.stock -= soldQuantity;
+    public void refundStock(int stockRefund) {
+        this.stock += stockRefund;
     }
+
 }
