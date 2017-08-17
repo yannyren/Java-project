@@ -63,7 +63,7 @@ public class Customer {
                 int value = Math.min(balance, billAmount);
                 // update the balance with the new amount
                 method.put(type, balance - value);
-                // subtract the amount we just spent from the total bill amount
+                // subtract the amount we just paid from the total bill amount
                 billAmount -= value;
 
                 if (billAmount == 0)
@@ -78,19 +78,15 @@ public class Customer {
         if (f < billAmount) {
             System.out.println("Sorry, I don't have enough money for it.");
         }
-
         else {
-
             deductFromWallet(billAmount);
         }
-
-
     }
 
     //checking
-    public int receivingRefund() {
+   // public void receivingRefund() {
 
-    }
+  //  }
 
 
 

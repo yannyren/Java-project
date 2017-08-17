@@ -17,25 +17,28 @@ public class CustomerTest {
     Customer toddy;
     ArrayList<HashMap<PaymentType, Integer>> toddyWallet;
     HashMap<PaymentType, Integer> cashList;
+    HashMap<PaymentType, Integer> creditCardList;
+    HashMap<PaymentType, Integer> debitCardList;
+    HashMap<PaymentType, Integer> criptoCurrencyList;
 
     @Before
     public void before() {
         toddyWallet = new ArrayList<HashMap<PaymentType, Integer>>();
         cashList = new HashMap<PaymentType, Integer>();
         cashList.put(PaymentType.CASH, 200);
-        HashMap<PaymentType, Integer> creditCardList = new HashMap<PaymentType, Integer>();
+        creditCardList = new HashMap<PaymentType, Integer>();
         creditCardList.put(PaymentType.MASTER_CREDIT, 5000);
         creditCardList.put(PaymentType.VISA_CREDIT, 4000);
-        HashMap<PaymentType, Integer> debitCardList = new HashMap<PaymentType, Integer>();
-        debitCardList.put(PaymentType.MASTER_CREDIT, 2000);
-        debitCardList.put(PaymentType.VISA_CREDIT, 1000);
-        HashMap<PaymentType, Integer> criptoCurrencyList = new HashMap<PaymentType, Integer>();
+        debitCardList = new HashMap<PaymentType, Integer>();
+        debitCardList.put(PaymentType.MASTER_DEBIT, 2000);
+        debitCardList.put(PaymentType.VISA_DEBIT, 1000);
+        criptoCurrencyList = new HashMap<PaymentType, Integer>();
         criptoCurrencyList.put(PaymentType.BITCOIN, 2000);
 
 
         toddyWallet.add(cashList);
-        toddyWallet.add(debitCardList);
         toddyWallet.add(creditCardList);
+        toddyWallet.add(debitCardList);
         toddyWallet.add(criptoCurrencyList);
 
         toddy = new Customer("Toddy", toddyWallet);
@@ -91,6 +94,41 @@ public class CustomerTest {
     @Test
     public void couldSumAvailableFund() {
         assertEquals(14200, toddy.totalFundAvailable());
+    }
+
+    @Test
+    public void couldPayForShopping_1() {
+        int billAmount = 10200;
+        toddy.payForShopping(10200);
+        assertEquals(0, toddyWallet.get(0).get(PaymentType.CASH).intValue());
+    }
+
+    @Test
+    public void couldPayForShopping_2() {
+        int billAmount = 10200;
+        toddy.payForShopping(10200);
+        assertEquals(0, toddyWallet.get(1).get(PaymentType.MASTER_CREDIT).intValue());
+    }
+
+    @Test
+    public void couldPayForShopping_3() {
+        int billAmount = 10200;
+        toddy.payForShopping(10200);
+        assertEquals(0, toddyWallet.get(1).get(PaymentType.VISA_CREDIT).intValue());
+    }
+
+    @Test
+    public void couldPayForShopping_4() {
+        int billAmount = 10200;
+        toddy.payForShopping(10200);
+        assertEquals(0, toddyWallet.get(2).get(PaymentType.VISA_DEBIT).intValue());
+    }
+
+    @Test
+    public void couldPayForShopping_5() {
+        int billAmount = 10200;
+        toddy.payForShopping(10200);
+        assertEquals(2000, toddyWallet.get(2).get(PaymentType.MASTER_DEBIT).intValue());
     }
 
 
