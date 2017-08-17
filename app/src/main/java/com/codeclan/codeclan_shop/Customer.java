@@ -83,7 +83,6 @@ public class Customer {
         }
     }
 
-
     public void receivingRefund(PaymentType x, int refund) {
         /* check if this method exists; if yes, refund to that method; if no, no refund*/
         for (HashMap<PaymentType, Integer> i: this.wallet) {
